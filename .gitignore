@@ -7,7 +7,9 @@ Thumbs.db
 
 # Rendered slide decks (build outputs; markdown is the source of truth — final decks live in Google Drive)
 *.pptx
+!templates/cbs-template.pptx   # the slim CBS reference template IS tracked (source asset, ~92 KB)
 slides/**/*.pdf
+/build/
 
 # Env / secrets
 .env
