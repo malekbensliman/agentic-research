@@ -9,7 +9,7 @@ We'll split it into per-module files (`00-why.md`, `01-four-modes.md`, …) late
 |---|--------|------|
 | 0 | Why this matters | 10 |
 | 1 | Four ways to work with Claude | 15 |
-| 2 | Agentic vs chatbot (and verifying) | 10 |
+| 2 | What a coding agent actually is (terminal → LLM + terminal) | 12 |
 | 3 | Installing Claude Code | 15 |
 | 4 | The terminal & your editor | 20 |
 | 5 | Claude Code at Columbia | 10 |

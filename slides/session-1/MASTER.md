@@ -82,32 +82,44 @@ _~15 min_
 **Notes:**
 > Go fast past Chat / Cowork, then spend real time in VS Code + the terminal. "Linux, not macOS": a little setup, then enormous leverage.
 
-# Module 2 — Agentic vs chatbot (and verifying)
-_~10 min_
+# Module 2 — What a coding agent actually is
+_~12 min_
 
-## Slide — "Agentic" in one sentence
+## Slide — The terminal: your computer's full control surface
 **On slide:**
-- A chatbot answers; an agent **acts** — it plans, runs tools, reads the result, and tries again, in a loop, until the task is done.
-- You set the goal and the guardrails; it does the steps.
+- One text prompt can drive *anything* the machine does: open and edit files, run programs (R / Stata / Python), install software, download data, hit the network, automate it all.
+- The GUI — windows and buttons — is a convenient *subset*; the terminal is the full set.
+
+**Visual:** (live demo) — run a few commands: `ls`, a one-line R / Python snippet, `curl` a file.
 
 **Notes:**
-> Contrast single-shot Q&A with the perceive–act–observe loop. That loop is why it does real work — and why it needs supervision.
+> Don't lecture — *show* it. A 60-second live demo (`ls`, a tiny R/Python snippet, `curl` a file). Takeaway: the terminal is the whole computer, in text. This sets up the reveal.
 
-## Slide — The landscape (and our pick)
+## Slide — A coding agent = an LLM + a terminal
 **On slide:**
-- Same idea, several tools: **Claude Code**, Codex, Cursor, OpenCode.
+- Take a language model. Let it **type commands into a terminal and read the output**, in a loop.
+- That's the whole trick: a coding agent is an LLM with **hands** (the terminal) and **eyes** (your files).
+
+**Visual:** `../assets/llm-plus-terminal.svg` — an LLM box + a terminal box → "agent", with a loop arrow (act → read output → act).
+
+**Notes:**
+> The demystifying "aha" of the workshop. Everything else — modes, MCP, skills — is detail on top of this one idea. Once people get "LLM + terminal," agents stop feeling like magic and start feeling controllable.
+
+## Slide — Same idea, several tools
+**On slide:**
+- Claude Code · Codex · Cursor · OpenCode — all "an LLM + a terminal / editor."
 - Largely interchangeable; we teach **Claude Code** (stronger auto mode). Codex users welcome — we'll help.
 
 **Notes:**
-> Don't get religious — the concepts transfer. We pick Claude Code for a smoother auto mode.
+> Don't get religious — the concept transfers. We pick Claude Code for a smoother auto mode.
 
-## Slide — It will make things up — so verify
+## Slide — Power cuts both ways → verify & guardrail
 **On slide:**
-- Agents hallucinate: invented functions, wrong numbers, confident errors.
-- Defenses: **run** the code, **check** outputs, and **use git** so nothing is silently lost.
+- Because it can do *anything*, it can also do the wrong thing **confidently** (hallucinations).
+- Defenses: **run** the code, **check** outputs, and **commit to git** so nothing is silently lost.
 
 **Notes:**
-> The honest slide. The fix isn't "trust it less" — it's a workflow that catches errors: execution, checks, version control. Sets up the git module.
+> The flip side of "it can do anything." This motivates permission modes (Module 6) and git (Module 8) — guardrails aren't bureaucracy, they're what make the power safe.
 
 # Module 3 — Installing Claude Code
 _~15 min_
