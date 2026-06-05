@@ -21,3 +21,6 @@ __pycache__/
 
 # Node
 node_modules/
+
+# Visual companion (brainstorm scratch — mockups persist here but aren't curated)
+.superpowers/
