@@ -1,0 +1,23 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude Code — personal/local settings (the committed settings.json is intentional; see .claude/)
+.claude/settings.local.json
+
+# Rendered slide decks (build outputs; markdown is the source of truth — final decks live in Google Drive)
+*.pptx
+slides/**/*.pdf
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
