@@ -9,8 +9,16 @@ scripts/build.sh out/talk.pptx   # custom output path
 ```
 `build.sh` preprocesses `slides/MASTER.md` and runs Pandoc with the CBS template as the reference doc (`--reference-doc=templates/cbs-template.pptx --slide-level=3`).
 
+## Live preview (CBS-themed, in your browser)
+```bash
+scripts/preview.sh        # -> build/MASTER.html (reveal.js, opens automatically)
+```
+Same markdown + preprocessing as the pptx build, rendered to a CBS-skinned reveal.js deck. Edit markdown → re-run → refresh. (Needs internet — reveal.js loads from a CDN.) The CBS look is a CSS twin of the `.pptx` master; for exact PowerPoint fidelity use `build.sh`.
+
 ## Files
-- `build.sh` — entry point (preprocess → pandoc).
+- `build.sh` — entry point for the `.pptx` (preprocess → pandoc).
+- `preview.sh` — reveal.js HTML preview (CBS CSS skin).
+- `cbs-theme.html` — the inline CSS skin for the preview.
 - `prep_notes.py` — preprocessor: strips our YAML front-matter / HTML comments / `_~min_` duration notes / `**On slide:**` labels; cleans `### Slide — X` titles to `X`; turns `**Notes:**` blockquotes into Pandoc `::: notes` speaker-note divs.
 - `slim_template.py` — one-off: turns a full CBS deck into a tiny reference template (drops content slides + unused media). Already applied → `templates/cbs-template.pptx` is ~92 KB.
 
