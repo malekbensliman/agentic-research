@@ -1,4 +1,5 @@
 import os, sys, zipfile, tempfile, unittest
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
@@ -101,6 +102,25 @@ class HarvestTest(unittest.TestCase):
         with zipfile.ZipFile(bad) as z:
             with self.assertRaises(ValueError):
                 H._xml(z, "ppt/presentation.xml")
+
+    def test_title_and_nested_bullets(self):
+        with zipfile.ZipFile(self.pptx) as z:
+            el = H._xml(z, "ppt/slides/slide1.xml")
+            title, bullets = H.title_and_bullets(el)
+        self.assertEqual(title, "Second In Order")
+        self.assertEqual(bullets, [(0, "Top bullet"), (1, "Nested bullet")])
+
+    def test_untitled_when_no_title_placeholder(self):
+        with zipfile.ZipFile(self.pptx) as z:
+            # slide2 has only a title; craft a titleless element
+            el = ET.fromstring(
+                '<p:sld xmlns:p="%s" xmlns:a="%s"><p:cSld><p:spTree>'
+                '<p:sp><p:txBody><a:p><a:r><a:t>Lonely</a:t></a:r></a:p>'
+                "</p:txBody></p:sp></p:spTree></p:cSld></p:sld>" % (H.P, H.A)
+            )
+            title, bullets = H.title_and_bullets(el)
+        self.assertIsNone(title)
+        self.assertEqual(bullets, [(0, "Lonely")])
 
 
 if __name__ == "__main__":

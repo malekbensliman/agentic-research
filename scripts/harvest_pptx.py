@@ -61,3 +61,30 @@ def slide_parts(zf):
         if rid in rmap:
             parts.append(rmap[rid]["target"])
     return parts
+
+
+def _para_text(p):
+    return "".join(t.text or "" for t in p.findall(".//a:t", NS)).strip()
+
+
+def title_and_bullets(slide_el):
+    """Return (title or None, [(level, text), ...]) for a slide element."""
+    title = None
+    bullets = []
+    for sp in slide_el.findall(".//p:spTree/p:sp", NS):
+        ph = sp.find(".//p:ph", NS)
+        ph_type = ph.get("type") if ph is not None else None
+        is_title = ph_type in ("title", "ctrTitle")
+        paras = [p for p in sp.findall(".//p:txBody/a:p", NS)]
+        texts = [(p, _para_text(p)) for p in paras]
+        texts = [(p, t) for p, t in texts if t]
+        if not texts:
+            continue
+        if is_title and title is None:
+            title = " ".join(t for _, t in texts)
+            continue
+        for p, t in texts:
+            pPr = p.find("a:pPr", NS)
+            lvl = int(pPr.get("lvl", "0")) if pPr is not None else 0
+            bullets.append((lvl, t))
+    return title, bullets
