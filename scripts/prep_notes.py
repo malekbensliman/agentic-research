@@ -6,7 +6,9 @@
 - converts each "**Notes:**" + blockquote into a Pandoc `::: notes` div so the
   speaker notes land in the slide's notes pane instead of on the slide.
 """
-import sys, re
+import sys, re, os
+BASE = os.path.dirname(os.path.abspath(sys.argv[1]))
+VISUAL = re.compile(r'^\*\*Visual:\*\*\s*(.*?)\s*—\s*(.*)$')
 
 src = open(sys.argv[1]).read()
 src = re.sub(r'^---\n.*?\n---\n', '', src, count=1, flags=re.S)   # front-matter
@@ -34,6 +36,17 @@ while i < len(lines):
             notes.append(lines[i].lstrip()[1:].strip())
             i += 1
         out += ['', '::: notes', ' '.join(notes), ':::', '']
+        continue
+    mv = VISUAL.match(s)
+    if mv:
+        target, desc = mv.group(1).strip('`'), mv.group(2).strip()
+        if target.startswith('('):
+            out.append(f'*{s[len("**Visual:**"):].strip()}*')
+        elif os.path.isfile(os.path.join(BASE, target)):
+            out.append(f'![{desc}]({target})')
+        else:
+            out.append(f'*[visual pending: {desc}]*')
+        i += 1
         continue
     out.append(line)
     i += 1
