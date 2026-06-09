@@ -167,3 +167,31 @@ def harvest(zf, stem, assets_dir):
             lines += ["", "**Notes:**", f"> {notes}"]
         blocks.append("\n".join(lines).rstrip())
     return "\n\n".join(blocks) + "\n"
+
+
+import zipfile
+
+REPO = Path(__file__).resolve().parent.parent
+ASSETS = REPO / "slides" / "assets"
+
+
+def main(argv):
+    if len(argv) != 2:
+        print("usage: harvest_pptx.py <deck.pptx>", file=sys.stderr)
+        return 2
+    src = Path(argv[1])
+    if not src.is_file():
+        print(f"error: file not found: {src}", file=sys.stderr)
+        return 1
+    try:
+        with zipfile.ZipFile(src) as zf:
+            md = harvest(zf, stem=src.stem, assets_dir=ASSETS)
+    except zipfile.BadZipFile:
+        print(f"error: not a .pptx (bad zip): {src}", file=sys.stderr)
+        return 1
+    sys.stdout.write(md)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv))

@@ -1,4 +1,4 @@
-import os, sys, zipfile, tempfile, unittest
+import os, sys, zipfile, tempfile, unittest, subprocess
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
@@ -160,6 +160,38 @@ class HarvestTest(unittest.TestCase):
         self.assertIn("**Visual:** assets/draft-slide02-img1.png — imported from slide 2", md)
         self.assertIn("**Notes:**", md)
         self.assertIn("> Remember to breathe.", md)
+
+
+class CliTest(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self.pptx = os.path.join(self.tmp, "draft.pptx")
+        make_fixture(self.pptx)
+        self.script = str(
+            Path(__file__).resolve().parent.parent / "scripts" / "harvest_pptx.py"
+        )
+
+    def tearDown(self):
+        import glob, shutil
+        for f in glob.glob(str(Path(__file__).resolve().parent.parent / "slides" / "assets" / "draft-*")):
+            os.remove(f)
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def test_cli_prints_dsl(self):
+        r = subprocess.run(
+            [sys.executable, self.script, self.pptx],
+            capture_output=True, text=True, cwd=self.tmp
+        )
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("### Slide — First In Order", r.stdout)
+
+    def test_cli_errors_on_missing_file(self):
+        r = subprocess.run(
+            [sys.executable, self.script, "/no/such.pptx"],
+            capture_output=True, text=True
+        )
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("not found", r.stderr.lower())
 
 
 if __name__ == "__main__":
