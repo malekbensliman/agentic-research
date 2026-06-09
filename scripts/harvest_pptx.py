@@ -88,3 +88,26 @@ def title_and_bullets(slide_el):
             lvl = int(pPr.get("lvl", "0")) if pPr is not None else 0
             bullets.append((lvl, t))
     return title, bullets
+
+
+def notes_text(zf, slide_part):
+    """Body text of the slide's notesSlide, skipping the slide-number placeholder."""
+    rmap = rels(zf, slide_part)
+    note_part = None
+    for info in rmap.values():
+        if info["type"].endswith("notesSlide"):
+            note_part = info["target"]
+            break
+    if not note_part:
+        return ""
+    el = _xml(zf, note_part)
+    chunks = []
+    for sp in el.findall(".//p:spTree/p:sp", NS):
+        ph = sp.find(".//p:ph", NS)
+        if ph is not None and ph.get("type") == "sldNum":
+            continue
+        for p in sp.findall(".//p:txBody/a:p", NS):
+            t = _para_text(p)
+            if t:
+                chunks.append(t)
+    return " ".join(chunks)

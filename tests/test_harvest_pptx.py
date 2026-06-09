@@ -122,6 +122,16 @@ class HarvestTest(unittest.TestCase):
         self.assertIsNone(title)
         self.assertEqual(bullets, [(0, "Lonely")])
 
+    def test_notes_skips_slide_number(self):
+        with zipfile.ZipFile(self.pptx) as z:
+            notes = H.notes_text(z, "ppt/slides/slide1.xml")
+        self.assertEqual(notes, "Remember to breathe.")
+
+    def test_notes_empty_when_absent(self):
+        with zipfile.ZipFile(self.pptx) as z:
+            notes = H.notes_text(z, "ppt/slides/slide2.xml")
+        self.assertEqual(notes, "")
+
 
 if __name__ == "__main__":
     unittest.main()
