@@ -79,6 +79,10 @@ class HarvestTest(unittest.TestCase):
         self.pptx = os.path.join(self.tmp, "draft.pptx")
         make_fixture(self.pptx)
 
+    def tearDown(self):
+        import shutil
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
     def test_slide_order_follows_sldidlst_not_filename(self):
         with zipfile.ZipFile(self.pptx) as z:
             parts = H.slide_parts(z)

@@ -39,12 +39,15 @@ def rels(zf, owner):
         return out
     base = posixpath.dirname(owner)
     for rel in root.findall("pkg:Relationship", NS):
+        rid = rel.get("Id")
         tgt = rel.get("Target")
+        if rid is None or tgt is None:
+            continue
         if rel.get("TargetMode") == "External":
             resolved = tgt
         else:
             resolved = posixpath.normpath(posixpath.join(base, tgt))
-        out[rel.get("Id")] = {"target": resolved, "type": rel.get("Type", "")}
+        out[rid] = {"target": resolved, "type": rel.get("Type", "")}
     return out
 
 
