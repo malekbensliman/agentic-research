@@ -111,3 +111,33 @@ def notes_text(zf, slide_part):
             if t:
                 chunks.append(t)
     return " ".join(chunks)
+
+
+def extract_images(zf, slide_part, slide_no, stem, assets_dir, seen):
+    """Write each referenced image once into assets_dir; return [(ref, slide_no)].
+
+    `seen` maps a media part -> 'assets/<name>' so a logo reused across slides is
+    written a single time and every reference points at it.
+    """
+    assets_dir = Path(assets_dir)
+    assets_dir.mkdir(parents=True, exist_ok=True)
+    rmap = rels(zf, slide_part)
+    el = _xml(zf, slide_part)
+    refs, m = [], 0
+    for blip in el.findall(".//a:blip", NS):
+        rid = blip.get(f"{{{R}}}embed")
+        info = rmap.get(rid)
+        if not info:
+            continue
+        media = info["target"]
+        if media in seen:
+            refs.append((seen[media], slide_no))
+            continue
+        m += 1
+        ext = media.rsplit(".", 1)[-1] if "." in media else "png"
+        name = f"{stem}-slide{slide_no:02d}-img{m}.{ext}"
+        (assets_dir / name).write_bytes(zf.read(media))
+        ref = f"assets/{name}"
+        seen[media] = ref
+        refs.append((ref, slide_no))
+    return refs

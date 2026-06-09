@@ -132,6 +132,21 @@ class HarvestTest(unittest.TestCase):
             notes = H.notes_text(z, "ppt/slides/slide2.xml")
         self.assertEqual(notes, "")
 
+    def test_images_written_once_and_referenced(self):
+        out_assets = Path(self.tmp) / "assets"
+        seen = {}
+        with zipfile.ZipFile(self.pptx) as z:
+            refs = H.extract_images(
+                z, "ppt/slides/slide1.xml", 2, "draft", out_assets, seen
+            )
+        # slide1 uses the same media twice -> one file, two references
+        files = sorted(p.name for p in out_assets.iterdir())
+        self.assertEqual(files, ["draft-slide02-img1.png"])
+        self.assertEqual(
+            refs, [("assets/draft-slide02-img1.png", 2),
+                   ("assets/draft-slide02-img1.png", 2)]
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
