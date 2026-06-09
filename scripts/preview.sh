@@ -15,6 +15,7 @@ python3 scripts/prep_notes.py "$SRC" > "$TMP"
 
 pandoc "$TMP" -f markdown -t revealjs -s -o "$OUT" \
   --slide-level=3 \
+  --resource-path=slides \
   -V revealjs-url=https://cdn.jsdelivr.net/npm/reveal.js@4 \
   -V theme=white \
   -V transition=none \
