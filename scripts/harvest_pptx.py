@@ -160,7 +160,7 @@ def harvest(zf, stem, assets_dir):
             lines.append(f"**Visual:** {ref} — imported from slide {sn}")
         if el.findall(".//p:graphicFrame", NS):
             lines.append(
-                f"**Visual:** (imported from slide {n}: table/chart — needs manual handling)"
+                f"**Visual:** (imported from slide {n}: table/chart) — needs manual handling"
             )
         notes = notes_text(zf, part)
         if notes:
