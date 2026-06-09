@@ -16,5 +16,5 @@ TMP="$(mktemp -t deck).md"
 trap 'rm -f "$TMP"' EXIT
 python3 scripts/prep_notes.py "$SRC" > "$TMP"
 
-pandoc "$TMP" -f markdown -o "$OUT" --slide-level=3 --reference-doc="$REF"
+pandoc "$TMP" -f markdown -o "$OUT" --slide-level=3 --resource-path=slides --reference-doc="$REF"
 echo "Rendered -> $OUT"

@@ -10,7 +10,7 @@ render() {
   local tmp; tmp="$(mktemp -t deck).md"
   python3 scripts/prep_notes.py slides/MASTER.md > "$tmp"
   pandoc "$tmp" -f markdown -t revealjs -s -o build/MASTER.html \
-    --slide-level=3 -V revealjs-url=https://cdn.jsdelivr.net/npm/reveal.js@4 \
+    --slide-level=3 --resource-path=slides -V revealjs-url=https://cdn.jsdelivr.net/npm/reveal.js@4 \
     -V theme=white -V transition=none -V hash=true \
     --include-in-header=scripts/cbs-theme.html \
     && echo "rendered $(date +%T)" || echo "render error (fix and save again)"
