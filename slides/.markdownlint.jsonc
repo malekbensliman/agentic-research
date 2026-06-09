@@ -1,0 +1,12 @@
+{
+  // Slide content under slides/ is a compact authoring DSL, not prose.
+  // markdownlint's defaults fight that DSL, so we switch off the rules that
+  // clash — scoped to this folder only (prose docs elsewhere stay fully linted).
+  // All other rules remain active.
+  "MD013": false, // line-length: Visual:/Notes: specs are intentionally long
+  "MD022": false, // blanks-around-headings: "### Slide — X" sits right above "**On slide:**"
+  "MD025": false, // single-title: multiple "#" = one per Session divider, by design
+  "MD032": false, // blanks-around-lists: bold label directly precedes its bullet list
+  "MD036": false, // no-emphasis-as-heading: "**On slide:** / **Notes:** / **Visual:**" are DSL keys the preprocessor parses
+  "MD049": false  // emphasis-style: "_~10 min_" duration markers coexist with "*emphasis*"
+}
