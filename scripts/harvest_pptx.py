@@ -6,7 +6,7 @@ is an INPUT you harvest from, never a source of truth: output goes to stdout for
 human to merge into slides/MASTER.md. See
 docs/superpowers/specs/2026-06-09-pptx-harvester-design.md.
 """
-import sys, posixpath
+import sys, posixpath, zipfile
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
@@ -168,8 +168,6 @@ def harvest(zf, stem, assets_dir):
         blocks.append("\n".join(lines).rstrip())
     return "\n\n".join(blocks) + "\n"
 
-
-import zipfile
 
 REPO = Path(__file__).resolve().parent.parent
 ASSETS = REPO / "slides" / "assets"
