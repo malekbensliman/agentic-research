@@ -141,3 +141,29 @@ def extract_images(zf, slide_part, slide_no, stem, assets_dir, seen):
         seen[media] = ref
         refs.append((ref, slide_no))
     return refs
+
+
+def harvest(zf, stem, assets_dir):
+    """Return DSL markdown for the whole deck; write images to assets_dir."""
+    seen = {}
+    blocks = []
+    for n, part in enumerate(slide_parts(zf), start=1):
+        el = _xml(zf, part)
+        title, bullets = title_and_bullets(el)
+        lines = [f"### Slide — {title or f'(untitled {n})'}"]
+        if bullets:
+            lines.append("**On slide:**")
+            for lvl, text in bullets:
+                lines.append("  " * lvl + f"- {text}")
+            lines.append("")
+        for ref, sn in extract_images(zf, part, n, stem, assets_dir, seen):
+            lines.append(f"**Visual:** {ref} — imported from slide {sn}")
+        if el.findall(".//p:graphicFrame", NS):
+            lines.append(
+                f"**Visual:** (imported from slide {n}: table/chart — needs manual handling)"
+            )
+        notes = notes_text(zf, part)
+        if notes:
+            lines += ["", "**Notes:**", f"> {notes}"]
+        blocks.append("\n".join(lines).rstrip())
+    return "\n\n".join(blocks) + "\n"

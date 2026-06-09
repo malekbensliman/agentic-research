@@ -147,6 +147,20 @@ class HarvestTest(unittest.TestCase):
                    ("assets/draft-slide02-img1.png", 2)]
         )
 
+    def test_harvest_emits_dsl_in_order(self):
+        out_assets = Path(self.tmp) / "assets"
+        with zipfile.ZipFile(self.pptx) as z:
+            md = H.harvest(z, stem="draft", assets_dir=out_assets)
+        # slide2 ("First In Order") must appear before slide1 ("Second In Order")
+        self.assertLess(md.index("First In Order"), md.index("Second In Order"))
+        self.assertIn("### Slide — Second In Order", md)
+        self.assertIn("**On slide:**", md)
+        self.assertIn("- Top bullet", md)
+        self.assertIn("  - Nested bullet", md)
+        self.assertIn("**Visual:** assets/draft-slide02-img1.png — imported from slide 2", md)
+        self.assertIn("**Notes:**", md)
+        self.assertIn("> Remember to breathe.", md)
+
 
 if __name__ == "__main__":
     unittest.main()
