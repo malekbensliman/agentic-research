@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" font-family="'Century Gothic','Futura',sans-serif">
+  <rect width="960" height="540" fill="#FFFFFF"/>
+
+  <defs>
+    <linearGradient id="spec" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#9E9A92"/>
+      <stop offset="1" stop-color="#0081CC"/>
+    </linearGradient>
+    <marker id="a2" markerWidth="12" markerHeight="12" refX="8" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#404040"/>
+    </marker>
+  </defs>
+
+  <!-- gradient spectrum bar -->
+  <rect x="80" y="220" width="800" height="56" rx="28" fill="url(#spec)"/>
+
+  <!-- endpoints -->
+  <text x="80" y="320" font-size="20" fill="#404040">you bring the context</text>
+  <text x="880" y="320" font-size="20" fill="#0081CC" text-anchor="end">full system access</text>
+
+  <!-- conversational -> agentic label -->
+  <text x="480" y="150" font-size="22" fill="#404040" text-anchor="middle">conversational</text>
+  <text x="480" y="150" font-size="22" fill="#0081CC" text-anchor="middle" dx="170">agentic</text>
+  <line x1="350" y1="168" x2="600" y2="168" stroke="#9E9A92" stroke-width="2" marker-end="url(#a2)"/>
+
+  <!-- four mode markers -->
+  <g text-anchor="middle">
+    <circle cx="180" cy="248" r="12" fill="#FFFFFF" stroke="#404040" stroke-width="3"/>
+    <text x="180" y="372" font-size="22" fill="#404040">Chat</text>
+
+    <circle cx="380" cy="248" r="12" fill="#FFFFFF" stroke="#404040" stroke-width="3"/>
+    <text x="380" y="372" font-size="22" fill="#404040">Cowork</text>
+
+    <circle cx="580" cy="248" r="12" fill="#FFFFFF" stroke="#0081CC" stroke-width="3"/>
+    <text x="580" y="372" font-size="22" fill="#0081CC">VS Code</text>
+
+    <circle cx="780" cy="248" r="12" fill="#FFFFFF" stroke="#0081CC" stroke-width="3"/>
+    <text x="780" y="372" font-size="22" fill="#0081CC">Terminal</text>
+  </g>
+
+  <!-- focus pill under VS Code + Terminal -->
+  <g>
+    <rect x="468" y="430" width="404" height="56" rx="28" fill="#0081CC"/>
+    <text x="670" y="465" font-size="20" fill="#FFFFFF" text-anchor="middle">We spend our time here</text>
+  </g>
+  <path d="M580 384 V424 M780 384 V424" stroke="#0081CC" stroke-width="2" fill="none"/>
+</svg>
