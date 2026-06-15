@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" font-family="'Century Gothic','Futura',sans-serif">
+  <rect width="960" height="540" fill="#FFFFFF"/>
+
+  <!-- Project folder / file tree -->
+  <g>
+    <rect x="60" y="120" width="280" height="300" rx="10" fill="#F2F2F2" stroke="#9E9A92" stroke-width="2"/>
+    <rect x="60" y="120" width="280" height="48" rx="10" fill="#023160"/>
+    <text x="84" y="150" font-size="20" fill="#FFFFFF">your-project/</text>
+    <g font-size="19" fill="#404040">
+      <text x="92" y="206">data.csv</text>
+      <text x="92" y="242">analysis.R</text>
+      <text x="92" y="278">paper.tex</text>
+      <text x="92" y="314">CLAUDE.md</text>
+      <text x="92" y="350">README.md</text>
+    </g>
+    <g fill="#0081CC">
+      <rect x="70" y="192" width="12" height="12"/>
+      <rect x="70" y="228" width="12" height="12"/>
+      <rect x="70" y="264" width="12" height="12"/>
+      <rect x="70" y="300" width="12" height="12"/>
+      <rect x="70" y="336" width="12" height="12"/>
+    </g>
+    <text x="200" y="448" font-size="18" fill="#808080" text-anchor="middle">your files</text>
+  </g>
+
+  <!-- Claude (the agent) -->
+  <g>
+    <circle cx="480" cy="250" r="74" fill="#0081CC"/>
+    <text x="480" y="244" font-size="26" fill="#FFFFFF" text-anchor="middle">Claude</text>
+    <text x="480" y="272" font-size="17" fill="#AAC1E2" text-anchor="middle">the agent</text>
+  </g>
+
+  <!-- read / write arrows between files and agent -->
+  <g stroke="#0081CC" stroke-width="3" fill="none" marker-end="url(#ar)">
+    <path d="M345 215 H398"/>
+    <path d="M398 290 H345"/>
+  </g>
+  <text x="372" y="200" font-size="15" fill="#404040" text-anchor="middle">reads</text>
+  <text x="372" y="320" font-size="15" fill="#404040" text-anchor="middle">writes</text>
+
+  <!-- arrow agent -> terminal -->
+  <g stroke="#0081CC" stroke-width="3" fill="none" marker-end="url(#ar)">
+    <path d="M560 250 H612"/>
+  </g>
+  <text x="586" y="238" font-size="15" fill="#404040" text-anchor="middle">runs</text>
+
+  <!-- Terminal running code -->
+  <g>
+    <rect x="620" y="120" width="280" height="300" rx="10" fill="#023160"/>
+    <rect x="620" y="120" width="280" height="40" rx="10" fill="#404040"/>
+    <circle cx="644" cy="140" r="6" fill="#00AFEF"/>
+    <circle cx="666" cy="140" r="6" fill="#AAC1E2"/>
+    <circle cx="688" cy="140" r="6" fill="#9E9A92"/>
+    <g font-size="16" fill="#FFFFFF" font-family="monospace">
+      <text x="640" y="196">$ Rscript analysis.R</text>
+      <text x="640" y="232" fill="#00AFEF">reading data.csv ...</text>
+      <text x="640" y="268" fill="#00AFEF">fitting model ...</text>
+      <text x="640" y="304" fill="#AAC1E2">writing results.csv</text>
+      <text x="640" y="340">$ <tspan fill="#00AFEF">_</tspan></text>
+    </g>
+    <text x="760" y="448" font-size="18" fill="#808080" text-anchor="middle">runs your code</text>
+  </g>
+
+  <defs>
+    <marker id="ar" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#0081CC"/>
+    </marker>
+  </defs>
+</svg>

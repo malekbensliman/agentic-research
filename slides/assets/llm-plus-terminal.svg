@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" font-family="'Century Gothic','Futura',sans-serif">
+  <rect width="960" height="540" fill="#FFFFFF"/>
+
+  <defs>
+    <marker id="a3" markerWidth="11" markerHeight="11" refX="7" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#0081CC"/>
+    </marker>
+  </defs>
+
+  <!-- LLM box -->
+  <rect x="80" y="200" width="240" height="140" rx="12" fill="#FFFFFF" stroke="#0081CC" stroke-width="3"/>
+  <text x="200" y="262" font-size="30" fill="#0081CC" text-anchor="middle">LLM</text>
+  <text x="200" y="296" font-size="17" fill="#808080" text-anchor="middle">the brain</text>
+
+  <!-- plus -->
+  <text x="372" y="285" font-size="48" fill="#9E9A92" text-anchor="middle">+</text>
+
+  <!-- Terminal box -->
+  <rect x="420" y="200" width="240" height="140" rx="12" fill="#023160"/>
+  <text x="540" y="262" font-size="28" fill="#FFFFFF" text-anchor="middle">Terminal</text>
+  <text x="540" y="296" font-size="17" fill="#AAC1E2" text-anchor="middle">hands + eyes</text>
+
+  <!-- equals arrow -->
+  <line x1="680" y1="270" x2="744" y2="270" stroke="#0081CC" stroke-width="3" marker-end="url(#a3)"/>
+
+  <!-- agent box -->
+  <rect x="752" y="206" width="150" height="128" rx="64" fill="#0081CC"/>
+  <text x="827" y="262" font-size="26" fill="#FFFFFF" text-anchor="middle">agent</text>
+  <text x="827" y="292" font-size="15" fill="#AAC1E2" text-anchor="middle">in a loop</text>
+
+  <!-- feedback loop under LLM + Terminal -->
+  <g fill="none" stroke="#0081CC" stroke-width="3">
+    <path d="M540 340 V392 H200 V340" marker-end="url(#a3)"/>
+  </g>
+  <g text-anchor="middle" font-size="18" fill="#404040">
+    <text x="370" y="430">act  →  read output  →  act</text>
+    <text x="370" y="460" font-size="15" fill="#808080">the feedback loop that makes it agentic</text>
+  </g>
+</svg>

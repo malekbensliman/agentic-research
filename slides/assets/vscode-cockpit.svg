@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" font-family="'Century Gothic','Futura',sans-serif">
+  <rect width="960" height="540" fill="#FFFFFF"/>
+
+  <!-- window -->
+  <rect x="40" y="40" width="880" height="460" rx="10" fill="#F2F2F2" stroke="#9E9A92" stroke-width="2"/>
+  <!-- title bar -->
+  <rect x="40" y="40" width="880" height="34" rx="10" fill="#023160"/>
+  <circle cx="62" cy="57" r="5" fill="#00AFEF"/>
+  <circle cx="80" cy="57" r="5" fill="#AAC1E2"/>
+  <circle cx="98" cy="57" r="5" fill="#9E9A92"/>
+  <text x="480" y="62" font-size="15" fill="#FFFFFF" text-anchor="middle">VS Code : your-project</text>
+
+  <!-- file tree -->
+  <rect x="40" y="74" width="200" height="426" fill="#FFFFFF" stroke="#9E9A92" stroke-width="1"/>
+  <text x="58" y="104" font-size="14" fill="#808080">EXPLORER</text>
+  <g font-size="15" fill="#404040">
+    <text x="58" y="138">data.csv</text>
+    <text x="58" y="166" fill="#0081CC">analysis.py</text>
+    <text x="58" y="194">paper.tex</text>
+    <text x="58" y="222">CLAUDE.md</text>
+  </g>
+
+  <!-- editor with a diff -->
+  <rect x="240" y="74" width="680" height="266" fill="#FFFFFF"/>
+  <text x="262" y="104" font-size="15" fill="#0081CC">analysis.py</text>
+  <line x1="240" y1="116" x2="920" y2="116" stroke="#F2F2F2" stroke-width="2"/>
+  <g font-family="monospace" font-size="15">
+    <rect x="240" y="128" width="680" height="26" fill="#FBECEC"/>
+    <text x="262" y="147" fill="#404040"><tspan fill="#C0392B">-</tspan> model = ols("y ~ x", df).fit()</text>
+    <rect x="240" y="158" width="680" height="26" fill="#E8F5EC"/>
+    <text x="262" y="177" fill="#404040"><tspan fill="#1E8449">+</tspan> model = ols("y ~ x + z", df).fit()</text>
+    <text x="262" y="207" fill="#404040">print(model.summary())</text>
+    <text x="262" y="237" fill="#404040">df.to_csv("results.csv")</text>
+  </g>
+  <!-- accept / reject diff pills -->
+  <rect x="700" y="300" width="92" height="28" rx="14" fill="#0081CC"/>
+  <text x="746" y="319" font-size="14" fill="#FFFFFF" text-anchor="middle">accept</text>
+  <rect x="804" y="300" width="92" height="28" rx="14" fill="#FFFFFF" stroke="#9E9A92" stroke-width="2"/>
+  <text x="850" y="319" font-size="14" fill="#404040" text-anchor="middle">reject</text>
+
+  <!-- integrated terminal at bottom running claude -->
+  <rect x="240" y="340" width="680" height="160" fill="#023160"/>
+  <text x="262" y="366" font-size="13" fill="#AAC1E2">TERMINAL</text>
+  <g font-family="monospace" font-size="15" fill="#FFFFFF">
+    <text x="262" y="398">$ claude</text>
+    <text x="262" y="424" fill="#00AFEF">Claude Code ready. Reading your-project ...</text>
+    <text x="262" y="450">&gt; summarize this project</text>
+    <text x="262" y="476" fill="#AAC1E2">proposed an edit to analysis.py, accept?</text>
+  </g>
+</svg>
