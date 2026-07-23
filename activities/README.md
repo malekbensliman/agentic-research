@@ -21,5 +21,13 @@ Goal: experience going from nothing to a working skeleton.
 ## Fallback sample project
 A ready-made sample repo lives here for anyone without their own (or with IRB-sensitive) data, so everyone can do Activities 1–2.
 
+## Activity 3 — When Words Sweat: language and loan funding (Session 2)
+A ready-to-run marketing example in [`when-words-sweat/`](when-words-sweat/): 10,000 real
+Prosper.com loan listings and a sequence of copy-paste prompts. Faculty drive the
+**Claude Code desktop app** from a fresh `/init` through EDA, a simple model, a
+richer text-based model, and a Qualtrics survey — proving their setup works while
+answering a tangible question: *does the language of a loan request get it funded?*
+See its `README.md` and `PROMPTS.md`.
+
 ## Bring-your-own-data (Session 2)
 Faculty bring their own data / project to push toward a real result during Session 2.
