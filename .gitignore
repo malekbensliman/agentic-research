@@ -25,5 +25,9 @@ __pycache__/
 # Node
 node_modules/
 
+# When Words Sweat — raw source data (240–355 MB each). The reduced, shareable
+# dataset under activities/when-words-sweat/ IS tracked; only the big roots are ignored.
+/prosper_archive_processed_with_compettion_*.csv
+
 # Visual companion (brainstorm scratch — mockups persist here but aren't curated)
 .superpowers/
