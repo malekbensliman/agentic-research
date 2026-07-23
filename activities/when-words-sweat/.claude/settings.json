@@ -4,10 +4,7 @@
     "allow": [
       "Bash(ls:*)",
       "Bash(pwd)",
-      "Bash(uv run:*)",
-      "Bash(uv:*)",
-      "Bash(python:*)",
-      "Bash(python3:*)",
+      "Bash(which:*)",
       "Bash(git status:*)",
       "Bash(git diff:*)",
       "Bash(git log:*)"
