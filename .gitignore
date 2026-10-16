@@ -4,6 +4,8 @@ Thumbs.db
 
 # Claude Code — personal/local settings (the committed settings.json is intentional; see .claude/)
 .claude/settings.local.json
+# Agent worktrees (local checkouts, never committed)
+.claude/worktrees/
 
 # Rendered slide decks (build outputs; markdown is the source of truth — final decks live in Google Drive)
 *.pptx

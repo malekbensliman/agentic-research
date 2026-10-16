@@ -6,8 +6,10 @@ is an INPUT you harvest from, never a source of truth: output goes to stdout for
 human to merge into slides/MASTER.md. See
 docs/superpowers/specs/2026-06-09-pptx-harvester-design.md.
 """
-import sys, posixpath, zipfile
+import posixpath
+import sys
 import xml.etree.ElementTree as ET
+import zipfile
 from pathlib import Path
 
 P = "http://schemas.openxmlformats.org/presentationml/2006/main"

@@ -1,4 +1,6 @@
-import subprocess, zipfile, unittest
+import subprocess
+import unittest
+import zipfile
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
