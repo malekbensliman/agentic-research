@@ -1,0 +1,11 @@
+# Keeps GitHub Actions current as ONE grouped PR per week.
+# (No uv entry: there is no Python project here; CI runs ruff/ty via `uvx ...@latest`.)
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]

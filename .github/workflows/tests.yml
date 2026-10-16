@@ -17,3 +17,13 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y pandoc
       - name: Run test suite
         run: python3 -m unittest discover -s tests -v
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v10.3.0
+      - name: ruff
+        run: uvx ruff@latest check .
+      - name: ty
+        run: uvx ty@latest check .

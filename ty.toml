@@ -1,0 +1,10 @@
+# ty config (no pyproject here: this repo is stdlib scripts + tests, checked by CI via `uvx ty@latest check .`).
+
+[environment]
+# tests/ import the scripts/ modules by putting scripts/ on sys.path at runtime.
+extra-paths = ["scripts"]
+
+[analysis]
+# activities/when-words-sweat/prepare_dataset.py is a one-off data-prep script run with
+# `uv run --with pandas --with pyarrow ...`; pandas is never installed in the repo env.
+allowed-unresolved-imports = ["pandas"]

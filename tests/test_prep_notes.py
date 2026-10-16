@@ -1,4 +1,7 @@
-import os, sys, subprocess, tempfile, unittest
+import subprocess
+import sys
+import tempfile
+import unittest
 from pathlib import Path
 
 SCRIPT = str(Path(__file__).resolve().parent.parent / "scripts" / "prep_notes.py")
@@ -8,7 +11,7 @@ def run(md_text, slides_dir):
     src = Path(slides_dir) / "MASTER.md"
     src.write_text(md_text)
     r = subprocess.run(
-        [sys.executable, SCRIPT, str(src)], capture_output=True, text=True
+        [sys.executable, SCRIPT, str(src)], check=False, capture_output=True, text=True
     )
     assert r.returncode == 0, r.stderr
     return r.stdout

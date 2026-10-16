@@ -5,7 +5,9 @@ small .pptx usable as a Pandoc --reference-doc.
 
 Usage: slim_template.py SRC.pptx DST.pptx
 """
-import sys, re, zipfile
+import re
+import sys
+import zipfile
 
 src, dst = sys.argv[1], sys.argv[2]
 zin = zipfile.ZipFile(src)
@@ -29,7 +31,7 @@ drop |= {n for n in names if n.startswith('ppt/media/') and n not in ref_media}
 
 # rewrite presentation (empty slide list), its rels (no slide rels), content types
 pres = re.sub(r'<p:sldIdLst>.*?</p:sldIdLst>', '<p:sldIdLst/>',
-              zin.read('ppt/presentation.xml').decode('utf-8'), flags=re.S)
+              zin.read('ppt/presentation.xml').decode('utf-8'), flags=re.DOTALL)
 presrels = re.sub(r'<Relationship[^>]+Type="[^"]*/slide"[^>]*/>', '',
                   zin.read('ppt/_rels/presentation.xml.rels').decode('utf-8'))
 ct = zin.read('[Content_Types].xml').decode('utf-8')

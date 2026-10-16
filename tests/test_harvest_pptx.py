@@ -1,5 +1,10 @@
-import os, sys, zipfile, tempfile, unittest, subprocess
+import os
+import subprocess
+import sys
+import tempfile
+import unittest
 import xml.etree.ElementTree as ET
+import zipfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
@@ -97,11 +102,10 @@ class HarvestTest(unittest.TestCase):
             z.writestr(
                 "ppt/presentation.xml",
                 '<!DOCTYPE x [<!ENTITY a "boom">]>'
-                '<p:presentation xmlns:p="%s"/>' % H.P,
+                f'<p:presentation xmlns:p="{H.P}"/>',
             )
-        with zipfile.ZipFile(bad) as z:
-            with self.assertRaises(ValueError):
-                H._xml(z, "ppt/presentation.xml")
+        with zipfile.ZipFile(bad) as z, self.assertRaises(ValueError):
+            H._xml(z, "ppt/presentation.xml")
 
     def test_title_and_nested_bullets(self):
         with zipfile.ZipFile(self.pptx) as z:
@@ -111,12 +115,12 @@ class HarvestTest(unittest.TestCase):
         self.assertEqual(bullets, [(0, "Top bullet"), (1, "Nested bullet")])
 
     def test_untitled_when_no_title_placeholder(self):
-        with zipfile.ZipFile(self.pptx) as z:
+        with zipfile.ZipFile(self.pptx):
             # slide2 has only a title; craft a titleless element
             el = ET.fromstring(
-                '<p:sld xmlns:p="%s" xmlns:a="%s"><p:cSld><p:spTree>'
+                f'<p:sld xmlns:p="{H.P}" xmlns:a="{H.A}"><p:cSld><p:spTree>'
                 '<p:sp><p:txBody><a:p><a:r><a:t>Lonely</a:t></a:r></a:p>'
-                "</p:txBody></p:sp></p:spTree></p:cSld></p:sld>" % (H.P, H.A)
+                "</p:txBody></p:sp></p:spTree></p:cSld></p:sld>"
             )
             title, bullets = H.title_and_bullets(el)
         self.assertIsNone(title)
@@ -172,7 +176,8 @@ class CliTest(unittest.TestCase):
         )
 
     def tearDown(self):
-        import glob, shutil
+        import glob
+        import shutil
         for f in glob.glob(str(Path(__file__).resolve().parent.parent / "slides" / "assets" / "draft-*")):
             os.remove(f)
         shutil.rmtree(self.tmp, ignore_errors=True)
@@ -180,7 +185,7 @@ class CliTest(unittest.TestCase):
     def test_cli_prints_dsl(self):
         r = subprocess.run(
             [sys.executable, self.script, self.pptx],
-            capture_output=True, text=True, cwd=self.tmp
+            check=False, capture_output=True, text=True, cwd=self.tmp
         )
         self.assertEqual(r.returncode, 0, r.stderr)
         self.assertIn("### Slide — First In Order", r.stdout)
@@ -188,7 +193,7 @@ class CliTest(unittest.TestCase):
     def test_cli_errors_on_missing_file(self):
         r = subprocess.run(
             [sys.executable, self.script, "/no/such.pptx"],
-            capture_output=True, text=True
+            check=False, capture_output=True, text=True
         )
         self.assertNotEqual(r.returncode, 0)
         self.assertIn("not found", r.stderr.lower())
